@@ -31,7 +31,7 @@ runs:
     with:
       repository: jitsecurity/jit-customer-scripts
       path: jit-customer-scripts
-      ref: "jit-shlomi-patch-1sc-19672-create-a-tool-to-generate-teams-from-github-part4"
+      ref: "1.0"
   - name: Set environment variables
     shell: bash
     run: |
