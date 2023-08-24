@@ -1,0 +1,47 @@
+name: Create Teams
+description: This action creates teams in JIT Security.
+inputs:
+  JIT_CLIENT_ID:
+    description: The JIT Client ID.
+    required: true
+    type: string
+  JIT_CLIENT_SECRET:
+    description: The JIT Client Secret.
+    required: true
+    type: string
+  ORGANIZATION_NAME:
+    description: The name of the GitHub organization.
+    required: true
+    type: string
+  GITHUB_API_TOKEN:
+    description: The GitHub Personal Access Token.
+    required: true
+    type: string
+  TEAM_WILDCARD_TO_EXCLUDE:
+    description: A wildcard team name to exclude from the teams that are created.
+    required: true
+    type: string
+runs:
+  using: "composite"
+  steps:
+  - name: Check out code
+    uses: actions/checkout@v2
+  - name: Check out jit-customer-scripts repository
+    uses: actions/checkout@v2
+    with:
+      repository: jitsecurity/jit-customer-scripts
+      path: jit-customer-scripts
+  - name: Set environment variables
+    shell: bash
+    run: |
+      echo "JIT_CLIENT_ID=${{ inputs.JIT_CLIENT_ID }}" >> $GITHUB_ENV
+      echo "JIT_CLIENT_SECRET=${{ inputs.JIT_CLIENT_SECRET }}" >> $GITHUB_ENV
+      echo "ORGANIZATION_NAME=${{ inputs.ORGANIZATION_NAME }}" >> $GITHUB_ENV
+      echo "GITHUB_API_TOKEN=${{ inputs.GITHUB_API_TOKEN }}" >> $GITHUB_ENV
+      echo "TEAM_WILDCARD_TO_EXCLUDE=${{ inputs.TEAM_WILDCARD_TO_EXCLUDE }}" >> $GITHUB_ENV
+  - name: Create teams
+    shell: bash
+    run: |
+      cd jit-customer-scripts
+      make install
+      make create-teams
