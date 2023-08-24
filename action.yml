@@ -1,5 +1,5 @@
-name: Create Teams
-description: This action creates teams in JIT Security.
+name: Sync Teams
+description: This action sync teams from Github topics.
 inputs:
   JIT_CLIENT_ID:
     description: The JIT Client ID.
@@ -18,7 +18,7 @@ inputs:
     required: true
     type: string
   TEAM_WILDCARD_TO_EXCLUDE:
-    description: A wildcard team name to exclude from the teams that are created.
+    description: A comma separated wildcard team names to exclude from the teams that are created. (e.g *test*)
     required: true
     type: string
 runs:
@@ -31,6 +31,7 @@ runs:
     with:
       repository: jitsecurity/jit-customer-scripts
       path: jit-customer-scripts
+      ref: 1.0
   - name: Set environment variables
     shell: bash
     run: |
