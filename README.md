@@ -1,6 +1,8 @@
 # Create Teams GitHub Action
 
-This action creates teams in JIT Security.
+This action creates teams in JIT Security using the [jit-customer-scripts](https://github.com/jitsecurity/jit-customer-scripts) repo.\
+You need to provide the following, which we recommend storing in Github Secrets:
+
 
 ## Inputs
 
@@ -16,25 +18,24 @@ None.
 
 ## Example
 ```
-uses: jitsecurity/jit-create-teams-github-actions@v1
-with:
-JIT_CLIENT_ID: ${{ secrets.JIT_CLIENT_ID }}
-JIT_CLIENT_SECRET: ${{ secrets.JIT_CLIENT_SECRET }}
-ORGANIZATION_NAME: ${{ github.organization }}
-GITHUB_API_TOKEN: secrets.GITHUBA​PIT​OKENTEAMW​ILDCARDT​OE​XCLUDE:"∗dev∗,∗test∗"ThiswillcreateteamsintheGitHuborganizationnamed‘{{ github.organization }}, excluding any teams that match the wildcard patterndev, test`.
-Running in Python 3.9
+name: Sync Jit Teams
+on:
+  schedule:
+    - cron: "0 3 * * *"
+  workflow_dispatch:
 
-To run this action in Python 3.9, you need to modify the runs section of the action as follows:
-
-runs:
-  using: "python3.9"
-
-You also need to install the setup-python action, which will set up a Python environment with the specified version.
-
-steps:
-  - name: Setup Python
-    id: setup-python
-    uses: actions/setup-python@v2
-     with:
-       python-version: 3.9
+jobs:
+  sync-teams:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Check out code
+      uses: actions/checkout@v2
+    - name: Call action
+      uses: jitsecurity/jit-sync-teams-github-action@v1
+      with:
+        JIT_CLIENT_ID: ${{ secrets.JIT_CLIENT_ID }}
+        JIT_CLIENT_SECRET: ${{ secrets.JIT_CLIENT_SECRET }}
+        ORGANIZATION_NAME: ${{ github.repository_owner }}
+        GITHUB_API_TOKEN: ${{ secrets.MY_GITHUB_API_TOKEN }}
+        TEAM_WILDCARD_TO_EXCLUDE: "*dev*, *test*"
 ```
