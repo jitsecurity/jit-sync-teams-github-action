@@ -31,7 +31,7 @@ runs:
     with:
       repository: jitsecurity/jit-customer-scripts
       path: jit-customer-scripts
-      ref: "1.0.0"
+      ref: "2.0.0"
   - name: Set environment variables
     shell: bash
     run: |
@@ -44,5 +44,5 @@ runs:
     shell: bash
     run: |
       cd jit-customer-scripts
-      make install
-      make create-teams
+      make sync-teams install
+      make sync-teams run
