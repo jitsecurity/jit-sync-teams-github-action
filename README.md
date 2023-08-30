@@ -31,7 +31,7 @@ jobs:
     - name: Check out code
       uses: actions/checkout@v3
     - name: Call action
-      uses: jitsecurity/jit-sync-teams-github-action@v1.0.0
+      uses: jitsecurity/jit-sync-teams-github-action@v1.1.0
       with:
         JIT_CLIENT_ID: ${{ secrets.JIT_CLIENT_ID }}
         JIT_CLIENT_SECRET: ${{ secrets.JIT_CLIENT_SECRET }}
