@@ -1,7 +1,7 @@
 # Create Teams GitHub Action
 
-This action creates teams in JIT Security using the [jit-customer-scripts](https://github.com/jitsecurity/jit-customer-scripts) repo.\
-You need to provide the following, which we recommend storing in Github Secrets:
+This GitHub Action creates teams in Jit using the [jit-customer-scripts](https://github.com/jitsecurity/jit-customer-scripts) repo.\
+You need to provide the following inputs, which we recommend storing in GitHub Secrets:
 
 
 ## Inputs
